@@ -24,7 +24,10 @@ class Experiment:
     _max_miscleavages = 1
     _max_mass = 4600  # in dalton
 
-    def __init__(self, fasta):
+    def __init__(
+        self,
+        fasta,
+    ):
         if isinstance(fasta, str):
             self.fasta = fasta
             self.proteins = read_fasta(fasta)
@@ -41,7 +44,7 @@ class Experiment:
             "max_length": Experiment._max_length,
             "max_miscleavages": Experiment._max_miscleavages,
             "max_mass": Experiment._max_mass,
-            "clip_nterm_m": False,
+            "clip_nterm_m": True,
         }
         self.peptides = {id: [] for id in self.proteins}
         self.outdir = f"{fasta}_digestedPeptides.csv"
@@ -148,7 +151,7 @@ class Experiment:
                     continue
 
                 # Also consider N-terminal peptide without its methionine
-                if not self.params["clip_nterm_m"]:
+                if self.params["clip_nterm_m"]:
                     first_pep = all_peptides[0]
                     all_peptides.append(re.sub(r"^[Mm]", "", first_pep))
 
