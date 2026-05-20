@@ -17,17 +17,16 @@ class Experiment:
     """Instantiate this class to perform in silico digestion and find unique
     peptide"""
 
-    # Default parameter. Can be change with self.set<param>(value)
-    _enzyme = "trypsin"  # See enzyme.py for more enzymes choice
-    _min_length = 7
-    _max_length = None
-    _max_miscleavages = 1
-    _max_mass = 4600  # in dalton
-
     def __init__(
         self,
         fasta,
+        enzyme="trypsin",
+        min_length=7,
+        max_length=None,
+        max_miscleavages=1,
+        max_mass=4600,
     ):
+
         if isinstance(fasta, str):
             self.fasta = fasta
             self.proteins = read_fasta(fasta)
@@ -39,11 +38,11 @@ class Experiment:
                 f"Expected ``fasta`` of type str or dict. Received: {type(fasta)}"
             )
         self.params = {
-            "enzyme": Experiment._enzyme,
-            "min_length": Experiment._min_length,
-            "max_length": Experiment._max_length,
-            "max_miscleavages": Experiment._max_miscleavages,
-            "max_mass": Experiment._max_mass,
+            "enzyme": enzyme,
+            "min_length": min_length,
+            "max_length": max_length,
+            "max_miscleavages": max_miscleavages,
+            "max_mass": max_mass,
             "clip_nterm_m": True,
         }
         self.peptides = {id: [] for id in self.proteins}
