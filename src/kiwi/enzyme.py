@@ -17,4 +17,5 @@ cleavage_site = {
     "glun": "(?=E)",  # Cleaves before glutamic acid
     "chymotrypsin+": "(?<=[YWFLM])",  # Cleaves after tyrosine, tryptophane, phenylalanine, leucine, methionine
     "chymotrypsin": "(?<=[YWF])",  # Cleaves after tyrosine, tryptophane, phenylalanine
+    "try-p+chymo": "(?:(?<=[YWF])|(?<=[RK])(?!P))",  # Cleaves after tyrosine, tryptophane, phenylalanine
 }
